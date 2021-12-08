@@ -9,7 +9,7 @@ function App() {
       <NavComp />
       <div id="Body"  className="body" style={{ marginLeft:"40px" }}>
         <div id="itemsList" className="itemsList"></div>
-            <CardComp info={info}/>
+            <CardComp info={info}/>   
       </div>
     </div>
   );
