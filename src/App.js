@@ -1,23 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+
+import  NavComp  from './components/navbar';
+import CardComp from './components/card';
 
 function App() {
+  const info ={price:'300', name:"Tops" , disp:"dsfjsidjfijivdfjghdfjkg hhdkhwktheruifhewuifhwfheruifhweivdfvn"}
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavComp />
+      <div id="Body"  className="body" style={{ marginLeft:"40px" }}>
+        <div id="itemsList" className="itemsList"></div>
+            <CardComp info={info}/>
+      </div>
     </div>
   );
 }
