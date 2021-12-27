@@ -2,10 +2,6 @@
 import  NavComp  from './components/navbar';
 import CardComp from './components/card';
 
-<<<<<<< HEAD
-function App() {
-  const info ={price:'300', name:"Tops" , disp:"this is discription"}
-=======
 
 
 
@@ -43,7 +39,6 @@ function App() {
       disp: "dsfjsidjdfjghdfjkg hhdkhwktheruifhewuifhwfheruifhweivdfvn",
     },
   ];
->>>>>>> 17a876a89f5f4d01b85154727d88d9011363587c
   return (
     <div className="App">
       <NavComp />
