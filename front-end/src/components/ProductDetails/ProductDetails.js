@@ -1,9 +1,7 @@
-import { width } from "@mui/system";
 import React from "react";
 import { useLocation, useParams } from "react-router";
 import { Table, Col, Image, Row, Button, Badge } from "react-bootstrap";
 import img from "../../logo.svg";
-import { integerPropType } from "@mui/utils";
 
 export default function ProductDetails() {
   const products = [
