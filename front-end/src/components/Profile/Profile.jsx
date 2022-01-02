@@ -1,4 +1,6 @@
-import React,{useState} from 'react'
+import React from "react";
+
+// react-bootstrap components
 import {
   Badge,
   Button,
@@ -10,20 +12,16 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import { useNavigate } from 'react-router';
-import { Link } from 'react-router-dom';
-export default function Register() {
-const navigate=  useNavigate();
-const gotoRegister =() =>navigate("/user/Register");
-  const [register, setRegister] = useState("Register");
+
+function Profile() {
   return (
     <>
-      <Container  fluid style={{width:"600px",margin:"auto",paddingTop:"3%"}}>
+      <Container  fluid style={{width:"600px",margin:"auto",paddingTop:"4%"}}>
         <Row>
           <Col >
             <Card >
               <Card.Header>
-                <Card.Title as="h4">Register </Card.Title>
+                <Card.Title as="h4">Edit Profile</Card.Title>
               </Card.Header>
               <Card.Body>
                 <Form>
@@ -62,18 +60,6 @@ const gotoRegister =() =>navigate("/user/Register");
                     </Col>
                   </Row>
                   <Row className="pt-2">
-                    <Col className="pr-1" md="6">
-                      <Form.Group>
-                        <label>Password</label>
-                        <Form.Control
-                          defaultValue=""
-                          placeholder=""
-                          type="password"
-                        ></Form.Control>
-                      </Form.Group>
-                      </Col>
-                      </Row>
-                  <Row className="pt-2">
                     <Col md="12">
                       <Form.Group>
                         <label>Address</label>
@@ -92,10 +78,9 @@ const gotoRegister =() =>navigate("/user/Register");
                     type="submit"
                     variant="info"
                   >
-                    Register
+                    Update Profile
                   </Button>
                   <div className="clearfix"></div>
-                  <Link  to="/user/login"> Already registered?</Link> 
                 </Form>
               </Card.Body>
             </Card>
@@ -104,7 +89,7 @@ const gotoRegister =() =>navigate("/user/Register");
         </Row>
       </Container>
     </>
-        
-      
-  )
+  );
 }
+
+export default Profile;

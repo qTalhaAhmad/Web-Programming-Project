@@ -3,9 +3,11 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
+import NavComp from "./components/navbar";
 
 ReactDOM.render(
   <React.StrictMode>
+    <NavComp />
     <BrowserRouter>
       <App />
     </BrowserRouter>
