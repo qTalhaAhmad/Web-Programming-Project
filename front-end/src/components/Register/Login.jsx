@@ -23,9 +23,11 @@ function handelSubmit(){
 
 if (path.search("admin")>0){
       navigate("/admin/currOrders")
+       window.location.reload();
 }
 else{
       navigate("/listing")
+       window.location.reload();
 
 }
 }

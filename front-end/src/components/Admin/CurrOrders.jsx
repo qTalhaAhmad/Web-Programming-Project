@@ -98,7 +98,7 @@ export default function CurrOrders() {
                 as="h4" 
                 className='pt-2'>
                 Open Orders
-                <Link style={{margin:"auto"}} to="/admin/PrevOrders"><Button>Dilvered Orders</Button> </Link> 
+               
                 </Card.Title>
                  
               </Card.Header>
