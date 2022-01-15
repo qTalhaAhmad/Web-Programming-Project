@@ -33,7 +33,10 @@ export default function AddProduct() {
                 <Card.Title as="h4">Add Product </Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form
+                method='POST'
+                action='/admin/addProduct'
+                >
                   <Row >
                     <Col >
                       <Row>

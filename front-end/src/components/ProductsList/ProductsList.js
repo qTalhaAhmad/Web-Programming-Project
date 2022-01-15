@@ -80,7 +80,16 @@ export default function ProductsList() {
 
   return (
     <div>
-      <h1 style={{ width: "100%", textAlign: "center" }}>Products</h1>
+      <h1
+        style={{
+          fontFamily:
+            "Proxima Nova, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif",
+          width: "100%",
+          textAlign: "center",
+        }}
+      >
+        Products
+      </h1>
       <div id="Body" className="body" style={{ marginLeft: "40px" }}>
         <span
           style={{ display: "justify" }}

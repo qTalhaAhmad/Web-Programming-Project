@@ -95,7 +95,7 @@ const gotoRegister =() =>navigate("/user/Register");
                     Register
                   </Button>
                   <div className="clearfix"></div>
-                  <Link  to="/user/login"> Already registered?</Link> 
+                  <Link  to="/"> Already registered?</Link> 
                 </Form>
               </Card.Body>
             </Card>

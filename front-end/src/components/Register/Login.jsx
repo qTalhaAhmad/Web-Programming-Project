@@ -1,4 +1,5 @@
 import React from 'react'
+import {useState,useEffect} from "react"
 import {
   Badge,
   Button,
@@ -9,12 +10,44 @@ import {
   Container,
   Row,
   Col,
+  
 } from "react-bootstrap";
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router';
+import { Link ,Outlet} from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router';
+
 export default function Login() {
     const navigate=  useNavigate();
+    const path= useLocation().pathname;
 const gotoRegister =() =>navigate("/user/Register");
+function handelSubmit(){
+
+if (path.search("admin")>0){
+      navigate("/admin/currOrders")
+}
+else{
+      navigate("/listing")
+
+}
+}
+const [type, settype] = useState("user");
+const [typeLink,   settypeLink]  = useState("/")
+useEffect(
+  
+  function typeNameing(){
+  if (path.search("admin")>0){
+      settype("user");
+      settypeLink("/");
+}
+else{
+      settype("admin");
+      settypeLink("/admin/login");
+
+}
+  
+},)
+
+
+
 
     return (
          <>
@@ -24,7 +57,10 @@ const gotoRegister =() =>navigate("/user/Register");
             <Card >
               <Card.Header>
                 <Card.Title as="h4" className="pt-2">Welcome back! </Card.Title>
+              <Link to={typeLink}> {type} ?  </Link>
               </Card.Header>
+
+              
               <Card.Body>
                 <Form>
                 
@@ -57,8 +93,9 @@ const gotoRegister =() =>navigate("/user/Register");
                   
                  
                   <Button
+                  onClick={handelSubmit}
                     className="btn-fill pull-right mt-4"
-                    type="submit"
+                    type=""
                     variant="success"
                   >
                     Login
@@ -72,6 +109,7 @@ const gotoRegister =() =>navigate("/user/Register");
           
         </Row>
       </Container>
+      <Outlet />
     </>
         
     )

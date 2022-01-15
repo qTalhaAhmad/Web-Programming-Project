@@ -15,14 +15,15 @@ import AddProduct from "./components/Admin/AddProduct";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<ProductsList />} />
+      <Route path=":listing" element={<ProductsList />} />
       <Route path="/user/profile" element={<Profile />} />
       <Route path="/user/Cart" element={<Cart />} />
-      <Route path="/user/PrevOrder" element={<PrevOrder />} />
+      <Route path="/user/PrevOrders" element={<PrevOrder />} />
       <Route path="/admin/addProduct" element={<AddProduct />} />
       <Route path="/user/order" element={<Order />} />
       <Route path="/user/Register" element={<Register />} />
-      <Route path="/user/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/admin/login" element={<Login />} />
       <Route path="/details/:pid" element={<ProductDetails />} />
       <Route path="/admin/currOrders" element={<CurrOrders />} />
       <Route path="/admin/prevOrders" element={<PrevOrders />} />
