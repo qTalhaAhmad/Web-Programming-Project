@@ -44,16 +44,10 @@ router.post("/login", async (req, res) => {
 
     console.log("hello    world ");
 
-<<<<<<< HEAD
         
      console.log("hello    world ");
         
         
-=======
-    //!user && res.status(401).json("Wrong User Name");
-
-    const originalPassword = admin.password;
->>>>>>> c61c8c45e46309c37029a6568e7863db57f92655
 
     const inputPassword = req.body.password;
     /*
@@ -89,7 +83,7 @@ router.post(
 );
 
 ////  view pending order by admin
-<<<<<<< HEAD
+
 router.get("/pendingorder/view", /*verifyTokenAndAdmin,*/ async (req, res) => {
 
 try {
@@ -116,7 +110,6 @@ router.post("/pendingorder/send", /*verifyTokenAndAdmin,*/ async (req, res) => {
   }
   });
   
-=======
 router.get(
   "/pendingorder",
   /*verifyTokenAndAdmin,*/ async (req, res) => {
@@ -129,7 +122,6 @@ router.get(
     }
   }
 );
->>>>>>> c61c8c45e46309c37029a6568e7863db57f92655
 
 //// view delivered order by admin
 
