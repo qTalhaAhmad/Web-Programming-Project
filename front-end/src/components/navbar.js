@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import "bootstrap/dist/css/bootstrap.min.css";
-import ShoppingCartTwoToneIcon from "@material-ui/icons/ShoppingCartTwoTone";
+//import ShoppingCartTwoToneIcon from "@material-ui/icons/ShoppingCartTwoTone";
 export default function NavComp() {
   const path = window.location.href;
 
@@ -45,7 +45,7 @@ export default function NavComp() {
               height="30"
               className="d-inline-block align-top"
             />{" "} */}
-            <ShoppingCartTwoToneIcon /> Shopme:)
+            Shopme:)
           </Navbar.Brand>
           <Nav className="m-1">
             {TypeLinks.map((rout) => (
