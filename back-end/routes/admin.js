@@ -3,6 +3,7 @@ const Admin = require("../models/admin");
 const Product = require("../models/Product");
 const Pendorder = require("../models/Pendingorder");
 const deliverorder = require("../models/deliveredorder");
+const onwayorder = require("../models/onwayorder");
 
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
@@ -47,9 +48,6 @@ router.post('/login', async (req, res) => {
 
         
      console.log("hello    world ");
-       
-        //!user && res.status(401).json("Wrong User Name");
-
         
         
 
@@ -98,7 +96,7 @@ router.post("/addproduct", /*verifyTokenAndAdmin,*/ async (req, res) => {
 
 
 ////  view pending order by admin
-router.get("/pendingorder", /*verifyTokenAndAdmin,*/ async (req, res) => {
+router.get("/pendingorder/view", /*verifyTokenAndAdmin,*/ async (req, res) => {
 
 try {
   let penorder = await Pendorder.find();
@@ -109,6 +107,20 @@ try {
   res.status(500).json(err);
 }
 });
+
+
+////  send pending order by admin to onwayorder  schema
+router.post("/pendingorder/send", /*verifyTokenAndAdmin,*/ async (req, res) => {
+
+  try {
+    let penorder = await Pendorder.find();
+      
+      res.status(200).json(penorder);
+  
+  } catch (err) {
+    res.status(500).json(err);
+  }
+  });
   
 
 //// view delivered order by admin

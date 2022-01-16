@@ -1,4 +1,6 @@
 const User = require("../models/User");
+
+const Pendorder = require("../models/Pendingorder");
 /*const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -119,7 +121,7 @@ router.post("/addtocart/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
  
 });
 
-
+////   user/order/222        user make order   /// total price function need to be set
 router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
   console.log(req.params.prodid);
   console.log(globaluserid);
@@ -151,27 +153,49 @@ router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
       }}
   )
 
-  await User.findOneAndUpdate(
+ 
 
-    {
 
-     _id:globaluserid
-        },
-    {
-      $set:{
-        // this code is used when we have product id and quantity
-        // cartitemlist:[{productId :req.params.prodid}]
-      cartitemlist:[]
-      }}
-  )
+//////////////  sending user order to pending order schema
+const newPendorder = new Pendorder({
+  userid:globaluserid,
+  totalprice:40,
+  address:user1.address,
+  itemlist:vvv,
+  dateoforder:Date()
+});
 
+try {
+  const savedPendorder = await newPendorder.save();
+  res.json(savedPendorder);
+} catch (err) {
+  res.status(500).json(err);
+}
+
+/////////////
+
+//////  making user cart item list empty
+await User.findOneAndUpdate(
+
+  {
+
+   _id:globaluserid
+      },
+  {
+    $set:{
+      // this code is used when we have product id and quantity
+      // cartitemlist:[{productId :req.params.prodid}]
+    cartitemlist:[]
+    }}
+)
+////////////
 
   }catch(err){
     res.status(500).json(err);
 }
         
 
-  
+
  // User.findByIdAndUpdate(globaluserid, { prevorder : {...cartitemlist} })
  
 }); 
