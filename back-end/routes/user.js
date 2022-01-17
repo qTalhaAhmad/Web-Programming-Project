@@ -123,6 +123,7 @@ router.post("/addtocart/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
 
 ////   user/order/222        user make order   /// total price function need to be set
 router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
+ 
   console.log(req.params.prodid);
   console.log(globaluserid);
   console.log('after try');
@@ -156,18 +157,21 @@ router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
  
 
 
-//////////////  sending user order to pending order schema
-const newPendorder = new Pendorder({
+//////////////  sending user order to pending order schema for admin
+
+const newpendorder = new Pendorder({
   userid:globaluserid,
-  totalprice:40,
+  totalprice:'520',
   address:user1.address,
   itemlist:vvv,
-  dateoforder:Date()
+  dateoforder:Date.now()
 });
 
 try {
-  const savedPendorder = await newPendorder.save();
-  res.json(savedPendorder);
+  const savedpenorder = await newpendorder.save();
+
+
+  //res.status(201).json(savedUser);
 } catch (err) {
   res.status(500).json(err);
 }
