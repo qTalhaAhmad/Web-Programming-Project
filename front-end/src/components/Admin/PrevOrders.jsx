@@ -89,8 +89,8 @@ export default function PrevOrders() {
   ];
   
   useEffect(() => {
-    console.log('meganduhuubeshak')
-    //function getData() {
+    console.log('toobatooba')
+
       axios.get('localhost:3000/product/')
         .then(response => {
           console.log(response)

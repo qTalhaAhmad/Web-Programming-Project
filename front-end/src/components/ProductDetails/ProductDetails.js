@@ -88,6 +88,7 @@ export default function ProductDetails() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+<<<<<<< HEAD
   function handelAddtoCart() {
     axios.post("http://localhost:3000/user/addtocart/" + id);
   }
@@ -101,6 +102,10 @@ export default function ProductDetails() {
     // "color": "",
     // "price": 1,
   });
+=======
+
+  const [items, setitems] = useState({});
+>>>>>>> 9460e19365d68e742a85abaff85aadcba745c342
 
   const parms = useParams();
 

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import {Card,Col,Row,Button, Badge} from "react-bootstrap"
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 export default function CartCard() {
@@ -10,7 +11,7 @@ export default function CartCard() {
                    <h5> Name</h5>
                     </Col>
                    <Col  >
-                    <Badge className='p-2'>Catogary</Badge> 
+                    <Badge className='p-2'>Catoaaagary</Badge> 
                     </Col>
                     <Col>
                     <p>Qunatity</p>
