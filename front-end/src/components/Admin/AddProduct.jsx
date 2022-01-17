@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import axios from "axios"
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import logo from "./../../logo.svg"
@@ -20,7 +21,7 @@ export default function AddProduct() {
   = useState(
     {"title":"yoyoy",
     "desc":"",
-    "img":"",
+    "img":"null",
     "categories":[""],
     "size":"",
     "color":"",
@@ -36,6 +37,17 @@ export default function AddProduct() {
     }
     function handelpricechange(e) {
       setproductData({...productData,"price":parseInt( e.target.value)})
+    }
+    function handelSubmit(e) {
+      e.preventDefault();
+      //alert(productData);
+      console.log(productData)
+      axios.post("http://localhost:3000/admin/addproduct",productData).then((err)=>{
+        if(err){
+          console.log(err);
+        }
+      })
+
     }
   const [imgPath, setimgPath] = useState(logo);
   const imageSubmit =(e)=>{
@@ -55,8 +67,7 @@ export default function AddProduct() {
               </Card.Header>
               <Card.Body>
                 <Form
-                method='POST'
-                action='/admin/addProduct'
+               onSubmit={handelSubmit}
                 >
                   <Row >
                     <Col >

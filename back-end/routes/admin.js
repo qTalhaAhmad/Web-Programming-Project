@@ -45,10 +45,7 @@ router.post("/login", async (req, res) => {
 
     console.log("hello    world ");
 
-        
-     console.log("hello    world ");
-        
-        
+    console.log("hello    world ");
 
     const inputPassword = req.body.password;
     /*
@@ -68,104 +65,97 @@ router.post("/login", async (req, res) => {
 
 //  add product item   on admin/addproduct
 
-router.post( "/addproduct", /*verifyTokenAndAdmin,*/ async (req, res) => {
-    res.send("we are on products");
+router.post(
+  "/addproduct",
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
+    //res.send("we are on products");
     const newProduct = new Product(req.body);
 
     try {
       const savedProduct = await newProduct.save();
-      res.json(savedProduct);
+      return res.json(savedProduct);
     } catch (err) {
-      res.status(500).json(err);
+      return res.status(500).json(err);
     }
   }
 );
 
 ////  view pending order by admin
 
-router.get("/pendingorder/view", /*verifyTokenAndAdmin,*/ async (req, res) => {
+router.get(
+  "/pendingorder/view",
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
+    try {
+      let penorder = await Pendorder.find();
 
-try {
-  let penorder = await Pendorder.find();
-    
-    res.status(200).json(penorder);
-
-} catch (err) {
-  res.status(500).json(err);
-}
-});
-
+      res.status(200).json(penorder);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+);
 
 ////  send pending order into delivered order
-router.post("/deliver/:orderid", /*verifyTokenAndAdmin,*/ async (req, res) => {
-    
-  console.log(req.params.orderid);
-  const penorder = await Pendorder.findOne(
-    {
-      _id:req.params.orderid
-    }
-  );
+router.post(
+  "/deliver/:orderid",
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
+    console.log(req.params.orderid);
+    const penorder = await Pendorder.findOne({
+      _id: req.params.orderid,
+    });
     console.log(penorder.userid);
-  
- ////////  remove that product id from user currentorder list and move to prvious order  list
- 
-      await User.findOneAndUpdate(
-        {
-          _id:penorder.userid
+
+    ////////  remove that product id from user currentorder list and move to prvious order  list
+
+    await User.findOneAndUpdate(
+      {
+        _id: penorder.userid,
+      },
+      {
+        $push: {
+          prevorder: penorder.itemlist,
         },
-        {
-          $push:
-          {
-            prevorder:penorder.itemlist
-          }
-        }
-      )
+      }
+    );
 
-
-      await User.findOneAndUpdate(
-        {
-          _id:penorder.userid
+    await User.findOneAndUpdate(
+      {
+        _id: penorder.userid,
+      },
+      {
+        $pull: {
+          currentorderlist: {
+            $in: penorder.itemlist,
+          },
         },
-        {
-          $pull:
-          {
-            currentorderlist:
-            {
-              $in:penorder.itemlist
-            }
-          }
-        }
-      )
+      }
+    );
 
-    
+    ////////////
 
-////////////
-  
-  const newdeliverorder = new deliverorder({
-    userid:penorder.userid,
-    totalprice:penorder.totalprice,
-    address:penorder.address,
-    itemlist:penorder.itemlist,
-    dateofdelivery:Date.now()
-  });
-  
-  try {
-    console.log("reach her2");
+    const newdeliverorder = new deliverorder({
+      userid: penorder.userid,
+      totalprice: penorder.totalprice,
+      address: penorder.address,
+      itemlist: penorder.itemlist,
+      dateofdelivery: Date.now(),
+    });
 
-    const saveddeliver = await newdeliverorder.save();
-  
-  
-  } catch (err) {
-    //res.status(500).json(err);
-    console.log("reach error");
+    try {
+      console.log("reach her2");
+
+      const saveddeliver = await newdeliverorder.save();
+    } catch (err) {
+      //res.status(500).json(err);
+      console.log("reach error");
+    }
+    //////////    now deleting that order from pending list
+
+    await Pendorder.findByIdAndDelete(req.params.orderid);
+    res.status(200).json("Product has been deleted from pending list...");
   }
-//////////    now deleting that order from pending list
+);
 
-     await Pendorder.findByIdAndDelete(req.params.orderid);
-      res.status(200).json("Product has been deleted from pending list...");
-
-});
- 
 //// view delivered order by admin
 
 router.get(
@@ -183,7 +173,9 @@ router.get(
 /////
 
 //UPDATE product
-router.put("updateproduct/:id",/*verifyTokenAndAdmin,*/ async (req, res) => {
+router.put(
+  "updateproduct/:id",
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
     try {
       const updatedProduct = await Product.findByIdAndUpdate(
         req.params.id,
