@@ -13,14 +13,37 @@ import {
   
 } from "react-bootstrap";
 import { Link ,Outlet} from 'react-router-dom';
+import axios from 'axios';
 import { useNavigate,useLocation } from 'react-router';
-
+    
 export default function Login() {
+  const [login, setlogin] = useState({
+        "userName":"",
+        "password":""
+    })
+    function handleChangeUsername(e){
+      setlogin({...login,"userName": e.target.value});
+   console.log(login)
+
+    }
+     function handelChangePassword(e){
+   
+   setlogin({...login,"password" :e.target.value})
+   ;
+   console.log(login)
+ }
     const navigate=  useNavigate();
     const path= useLocation().pathname;
 const gotoRegister =() =>navigate("/user/Register");
-function handelSubmit(){
 
+function handelSubmit(e){
+   e.preventDefault();
+
+axios.post('http://localhost:3000/user/login',{...login}).then((res)=>{
+console.log(res);
+console.log(res.date);
+
+  });
 if (path.search("admin")>0){
       navigate("/admin/currOrders")
        window.location.reload();
@@ -46,7 +69,7 @@ else{
 
 }
   
-},)
+},[path])
 
 
 
@@ -64,7 +87,7 @@ else{
 
               
               <Card.Body>
-                <Form>
+                <Form onSubmit={handelSubmit}>
                 
                   <Row className="pt-1">
                     <Col className="pr-1" >
@@ -73,7 +96,8 @@ else{
                         <Form.Control
                           defaultValue=""
                           placeholder=""
-                          type="email"
+                          type="text"
+                          onChange={handleChangeUsername}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -87,6 +111,8 @@ else{
                           defaultValue=""
                           placeholder=""
                           type="password"
+                          onChange={handelChangePassword}
+
                         ></Form.Control>
                       </Form.Group>
                       </Col>
@@ -95,9 +121,9 @@ else{
                   
                  
                   <Button
-                  onClick={handelSubmit}
+                  
                     className="btn-fill pull-right mt-4"
-                    type=""
+                    type="submit"
                     variant="success"
                   >
                     Login
