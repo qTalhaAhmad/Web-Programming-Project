@@ -88,24 +88,8 @@ export default function ProductDetails() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
-<<<<<<< HEAD
-  function handelAddtoCart() {
-    axios.post("http://localhost:3000/user/addtocart/" + id);
-  }
-  const [items, setitems] = useState({
-    // "_id": "61e5423fb6498a8fdeb8e6c5",
-    // "title": "FGA",
-    // "desc": "MFG",
-    // "img": "null",
-    // "categories": ["MFs"],
-    // "size": "",
-    // "color": "",
-    // "price": 1,
-  });
-=======
 
   const [items, setitems] = useState({});
->>>>>>> 9460e19365d68e742a85abaff85aadcba745c342
 
   const parms = useParams();
 
