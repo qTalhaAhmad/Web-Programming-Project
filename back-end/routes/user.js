@@ -137,7 +137,6 @@ router.post(
 );
 
 ////   user/order/222        user make order   /// total price function need to be set
-<<<<<<< HEAD
 router.post(
   "/order/:prodid",
   /*verifyTokenAndAdmin,*/ async (req, res) => {
@@ -146,24 +145,7 @@ router.post(
     console.log("after try");
 
     try {
-      const user1 = await User.findOne({
-        _id: globaluserid,
-      });
-      const vvv = [...user1.cartitemlist];
-      console.log(vvv);
-
-      await User.findOneAndUpdate(
-=======
-router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
- 
-  console.log(req.params.prodid);
-  console.log(globaluserid);
-  console.log('after try');
-
-
-  try{
-    const user1 = await User.findOne(
->>>>>>> c6399a1ab8a7b90673122dc6dbc207a3645cf1ef
+      const user1 = await User.findOne(
         {
           _id: globaluserid,
         },
@@ -199,7 +181,40 @@ router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
         {
           _id: globaluserid,
         },
-<<<<<<< HEAD
+        {
+          $push: {
+            // this code is used when we have product id and quantity
+            // cartitemlist:[{productId :req.params.prodid}]
+            currentorderlist: vvv,
+          },
+        }
+      );
+
+      //////////////  sending user order to pending order schema for admin
+
+      const newpendorder = new Pendorder({
+        userid: globaluserid,
+        totalprice: "520",
+        address: user1.address,
+        itemlist: vvv,
+        dateoforder: Date.now(),
+      });
+
+      try {
+        const savedpenorder = await newpendorder.save();
+
+        //res.status(201).json(savedUser);
+      } catch (err) {
+        res.status(500).json(err);
+      }
+
+      /////////////
+
+      //////  making user cart item list empty
+      await User.findOneAndUpdate(
+        {
+          _id: globaluserid,
+        },
         {
           $set: {
             // this code is used when we have product id and quantity
@@ -212,62 +227,6 @@ router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
     } catch (err) {
       res.status(500).json(err);
     }
-=======
-    {
-      $push:{
-        // this code is used when we have product id and quantity
-        // cartitemlist:[{productId :req.params.prodid}]
-      currentorderlist:vvv
-        
-      }}
-  )
-
- 
-
-
-//////////////  sending user order to pending order schema for admin
-
-const newpendorder = new Pendorder({
-  userid:globaluserid,
-  totalprice:'520',
-  address:user1.address,
-  itemlist:vvv,
-  dateoforder:Date.now()
-});
-
-try {
-  const savedpenorder = await newpendorder.save();
-
-
-  //res.status(201).json(savedUser);
-} catch (err) {
-  res.status(500).json(err);
-}
-
-/////////////
-
-//////  making user cart item list empty
-await User.findOneAndUpdate(
-
-  {
-
-   _id:globaluserid
-      },
-  {
-    $set:{
-      // this code is used when we have product id and quantity
-      // cartitemlist:[{productId :req.params.prodid}]
-    cartitemlist:[]
-    }}
-)
-////////////
-
-  }catch(err){
-    res.status(500).json(err);
-}
-        
-
->>>>>>> c6399a1ab8a7b90673122dc6dbc207a3645cf1ef
 
     // User.findByIdAndUpdate(globaluserid, { prevorder : {...cartitemlist} })
   }
