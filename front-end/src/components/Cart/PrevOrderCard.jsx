@@ -1,7 +1,7 @@
 import React from 'react'
 import {Card,Col,Row,Button, Badge} from "react-bootstrap"
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-export default function PrevOrderCard() {
+export default function PrevOrderCard({product}) {
     return (
         <div>
             <Card style={{ margin:"10px" ,paddingLeft:"10px"}} >

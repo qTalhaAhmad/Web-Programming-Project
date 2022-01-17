@@ -93,7 +93,7 @@ export default function Cart() {
   useEffect(() => {
     console.log('useEffCurrentOrderPageUser')
     
-    axios.get('http://localhost:3000/user/orders')                     //   link ???
+    axios.get('http://localhost:3000/user//currOrder')
         
       .then((response) => {
         console.log(response.data);

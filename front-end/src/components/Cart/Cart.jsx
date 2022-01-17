@@ -93,8 +93,10 @@ export default function Cart() {
 
   useEffect(() => {
     console.log('useEffCartUser')
-      axios.get('http://localhost:3000/user/cart')                      //   link ???
-      .then((response) => {
+
+      axios.get('http://localhost:3000/user/cart')                      
+    
+        .then((response) => {
         console.log(response.data);
         console.log(response.status);
         console.log(response.statusText);
