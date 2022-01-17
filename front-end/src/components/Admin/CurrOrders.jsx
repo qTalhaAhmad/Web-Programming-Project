@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import CurrCard from './CurrCard'
 import { Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -86,6 +87,25 @@ export default function CurrOrders() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+
+
+  const [items, setitems] = useState([1,2,3,4])
+
+  useEffect(() => {
+    console.log('useEffCurrOrderAdmin')                               
+      axios.get('http://localhost:3001/admin/CurrOrders')                     //    link 
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
+        
+        setitems(response.data);
+      });
+  }, []);
+
+
   return (
         <Card style=
         {{maxWidth:600 ,
@@ -102,7 +122,7 @@ export default function CurrOrders() {
                 </Card.Title>
                  
               </Card.Header>
-           {products.map((product)=>(<CurrCard product={product}/>))}
+           {items.map((product)=>(<CurrCard product={product}/>))}
 
         
         </Card>

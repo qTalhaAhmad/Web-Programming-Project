@@ -139,9 +139,9 @@ router.post(
 
 ////   user/order/222        user make order   /// total price function need to be set
 router.post(
-  "/order/:prodid",
+  "/orders",
   /*verifyTokenAndAdmin,*/ async (req, res) => {
-    console.log(req.params.prodid);
+    
     console.log(globaluserid);
     console.log("after try");
 
@@ -167,68 +167,77 @@ router.post(
             currentorderlist: vvv,
           },
         }
-      );
-
-      //////////////  sending user order to pending order schema
-      // calculating total  new modification
-      let price=0;
-     fun=async()=>{ 
-  user1.cartitemlist.forEach( async (d)  =>{
-          product = await Product.findById(d);
-
-         price = price + product.price;
-       
-    }).then
-     return  price;
-  }
-  
-
-  const p=awa
-
-  
-
+       ).then(async() => {
+        // console.log('fuck')
+        // const p = awa
     
-      const newPendorder = new Pendorder({
-        userid:globaluserid,
-        totalprice:40,
-        address:user1.address,
-        itemlist:vvv,
-        dateoforder:Date()
-      });
-      
+        const newPendorder = new Pendorder({
+          userid:globaluserid,
+          totalprice:40,
+          address:user1.address,
+          itemlist:vvv,
+          dateoforder:Date()
+        });
+        
       try {
         const savedPendorder = await newPendorder.save();
-        res.json(savedPendorder);
-      } catch (err) {
-        res.status(500).json(err);
-      }    
-      /////////////
-
-      //////  making user cart item list empty
-      await User.findOneAndUpdate(
-        {
-          _id: globaluserid,
-        },
-        {
-          $set: {
-            // this code is used when we have product id and quantity
-            // cartitemlist:[{productId :req.params.prodid}]
-            cartitemlist: [],
-          },
-        }
-      );
-      ////////////
+        return res.json(savedPendorder);
+      }
+        catch (err) {
+          return res.status(500).json(err);
+        }    
+        /////////////
   
+        //////  making user cart item list empty
+        await User.findOneAndUpdate(
+          {
+            _id: globaluserid,
+          },
+          {
+            $set: {
+              // this code is used when we have product id and quantity
+              // cartitemlist:[{productId :req.params.prodid}]
+              cartitemlist: [],
+            },
+          }
+        );
+        ////////////
+    
+  
+  
+  /////////////
+  
+          
 
+         
+      });
 
-/////////////
+      //////////////  sending user order to pending order schema
+    ///////
+    ///
+      // calculating total  new modification
+  //     let price=0;
+  //    fun=async()=>{ 
+  // user1.cartitemlist.forEach( async (d)  =>{
+  //         product = await Product.findById(d);
 
-        
- 
+  //        price = price + product.price;
+       
+  //   }).then
+  //    return  price;
+  // }
+  ///
+    //
+      //
+      //
+      //
+      //
+    //
+
+  
 }); 
 
 ////////  new modification  but not working
-
 
 router.get("/detail/:id", async (req, res) => {
 
@@ -258,8 +267,6 @@ var count=0;
       
    }
    )
-
-  
 
 ///////////
 

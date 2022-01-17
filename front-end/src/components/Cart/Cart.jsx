@@ -87,35 +87,28 @@ export default function Cart() {
     },
   ];
 
-  // const [items, setitems] = useState([1,2,3,4])
+  const [items, setitems] = useState([1,2,3,4])
 
-  // useEffect(() => {
-  //   console.log('useEffCart')
-  //   //function getData() {
-  //     axios.get('http://localhost:3000/product')
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       console.log(response.status);
-  //       console.log(response.statusText);
-  //       console.log(response.headers);
-  //       console.log(response.config);
+  useEffect(() => {
+    console.log('useEffCartUser')
+      axios.get('http://localhost:3000/user/cart')                      //   link ???
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);      
+        setitems(response.data);
 
-        
-  //       setitems(response.data);
-
-  //     });
-    
-  // }, []);
-
-
-
+      });
+  }, []);
 
   return (
         <Card style={{maxWidth:600 ,margin:"auto",marginBottom:"20px" }} >
             <Card.Header>
                 <Card.Title as="h4" className='pt-2'>Checkout Cart</Card.Title>
               </Card.Header>
-           {products.map((product)=>(<CartCard product={product}/>))}
+           {items.map((product)=>(<CartCard product={product}/>))}
 
            <Button style={{ marginLeft:"10px",marginTop:"5px",marginBottom:"10px" ,width:"25%" ,paddingLeft:"10px"}} className="ml-4" varinet="success">CheckOut</Button>
         </Card>

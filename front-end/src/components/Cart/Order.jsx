@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import OrderCard from './OrderCard'
 import { Button, Card } from 'react-bootstrap';
 export default function Cart() {
@@ -85,6 +86,24 @@ export default function Cart() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+
+
+  const [items, setitems] = useState([1,2,3,4])
+
+  useEffect(() => {
+    console.log('useEffCurrentOrderPageUser')
+      axios.get('http://localhost:3000/user/cart')                      //   link ???
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);      
+        setitems(response.data);
+
+      });
+  }, []);
+
   return (
         <Card style=
         {{maxWidth:600 ,
@@ -97,7 +116,7 @@ export default function Cart() {
                 Your Order
                 </Card.Title>
               </Card.Header>
-           {products.map((product)=>(<OrderCard product={product}/>))}
+           {items.map((product)=>(<OrderCard product={product}/>))}
 
            <Button style={
                { marginLeft:"10px",

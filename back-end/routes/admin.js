@@ -157,7 +157,6 @@ router.post(
 );
 
 //// view delivered order by admin
-
 router.get(
   "/deliveredorder",
   /*verifyTokenAndAdmin,*/ async (req, res) => {
