@@ -92,7 +92,7 @@ export default function PrevOrder() {
   useEffect(() => {
     console.log('useEffCartUser')
 
-      axios.get('http://localhost:3000/user//prevOrders')                      
+      axios.get('http://localhost:3000/user/prevOrders')
     
         .then((response) => {
         console.log(response.data);
