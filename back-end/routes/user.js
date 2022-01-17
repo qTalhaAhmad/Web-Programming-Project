@@ -174,6 +174,18 @@ router.post(
       });
 
       try {
+        await User.findOneAndUpdate(
+          {
+            _id: globaluserid,
+          },
+          {
+            $set: {
+              // this code is used when we have product id and quantity
+              // cartitemlist:[{productId :req.params.prodid}]
+              cartitemlist: [],
+            },
+          }
+        );
         const savedPendorder = await newPendorder.save();
         return res.json(savedPendorder);
       } catch (err) {
@@ -182,18 +194,7 @@ router.post(
       /////////////
 
       //////  making user cart item list empty
-      await User.findOneAndUpdate(
-        {
-          _id: globaluserid,
-        },
-        {
-          $set: {
-            // this code is used when we have product id and quantity
-            // cartitemlist:[{productId :req.params.prodid}]
-            cartitemlist: [],
-          },
-        }
-      );
+
       ////////////
 
       /////////////
