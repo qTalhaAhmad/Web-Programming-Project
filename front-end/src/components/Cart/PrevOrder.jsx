@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import PrevOrderCard from './PrevOrderCard'
 import { Button, Card } from 'react-bootstrap';
 export default function PrevOrder() {
@@ -85,6 +86,25 @@ export default function PrevOrder() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+
+  const [items, setitems] = useState([1,2,3,4])
+
+  useEffect(() => {
+    console.log('useEffCartUser')
+
+      axios.get('http://localhost:3000/user//prevOrders')                      
+    
+        .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);      
+        setitems(response.data);
+
+      });
+  }, []);
+
   return (
         <Card style=
         {{maxWidth:600 ,
@@ -97,7 +117,7 @@ export default function PrevOrder() {
                 Your Previous Orders
                 </Card.Title>
               </Card.Header>
-           {products.map((product)=>(<PrevOrderCard product={product}/>))}
+           {items.map((product)=>(<PrevOrderCard product={product}/>))}
 
         
         </Card>
