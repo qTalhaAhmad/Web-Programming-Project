@@ -86,7 +86,9 @@ export default function Cart() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
-
+ function handleCheckout(){
+   axios.post("http://localhost:3000/user/orders")
+ }
   const [items, setitems] = useState([1,2,3,4])
 
   useEffect(() => {
@@ -110,7 +112,12 @@ export default function Cart() {
               </Card.Header>
            {items.map((product)=>(<CartCard product={product}/>))}
 
-           <Button style={{ marginLeft:"10px",marginTop:"5px",marginBottom:"10px" ,width:"25%" ,paddingLeft:"10px"}} className="ml-4" varinet="success">CheckOut</Button>
+           <Button 
+           style={{ marginLeft:"10px",marginTop:"5px",marginBottom:"10px" ,width:"25%" ,paddingLeft:"10px"}}
+            className="ml-4"
+             varinet="success"
+             onClick={handleCheckout}
+             >CheckOut</Button>
         </Card>
     )
 }

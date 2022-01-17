@@ -40,8 +40,8 @@ function handelSubmit(e){
    e.preventDefault();
 
 axios.post('http://localhost:3000/user/login',{...login}).then((res)=>{
-console.log(res);
-console.log(res.date);
+console.log("response"+res);
+console.log(res.data);
 
   });
 if (path.search("admin")>0){
