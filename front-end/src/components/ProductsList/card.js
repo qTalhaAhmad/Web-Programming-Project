@@ -9,7 +9,7 @@ export default function CardComp({ product }) {
   const detailsRoute = "/detalis/";
   const cardClick = () => navigate("details/" + id);
 
-  const { price, id, category, name, specification, image } = product;
+  const { price, id, categories, title, desc, images } = product;
   // const featured_image = images.length > 0 ? images[0].src : "";
   return (
     <Card style={{ width: "300px", margin: 15 }} onClick={cardClick}>
@@ -17,11 +17,11 @@ export default function CardComp({ product }) {
       <div style={{ backgroundColor: "rgba(242, 237, 190, 0.33)", padding: 5 }}>
         <Row>
           <h5 style={{ textAlign: "center" }} strong>
-            {name}
+            {title}
           </h5>
         </Row>
         <Row>
-          <p>{category}</p>
+          <p>{categories}</p>
           <p type="secondary" delete={0}>
             {`Rs: ${price}`}
           </p>

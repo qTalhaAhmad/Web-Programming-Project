@@ -89,8 +89,7 @@ export default function ProductDetails() {
   ];
   const parms = useParams();
   let { pid } = parms;
-  const { price, id, category, name, specification, image } =
-    products[parseInt(pid) - 1];
+  const { price, id, category, name, specification, image } = products[parseInt(pid) - 1];
 
   return (
     <div>

@@ -79,9 +79,10 @@ export default function ProductsList() {
     },
   ];
 
-    
+  const [items, setitems] = useState([1,2,4,5])
+  
   useEffect(() => {
-    console.log('meganduhuubeshak')
+    console.log('useEffworking')
     //function getData() {
       axios.get('http://localhost:3000/product')
       .then((response) => {
@@ -90,9 +91,13 @@ export default function ProductsList() {
         console.log(response.statusText);
         console.log(response.headers);
         console.log(response.config);
+
+        
+        setitems(response.data);
+
       });
     //}
-  }, []);//products
+  }, []);
 
   return (
     <div>
@@ -119,7 +124,7 @@ export default function ProductsList() {
             spacing={4}
             style={{ marginTop: "20px" }}
           >
-            {products.map((product) => (
+            {items.map((product) => (
               <CardComp key={product.id} product={product} />
             ))}
           </Grid>
