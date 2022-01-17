@@ -90,12 +90,25 @@ export default function ProductDetails() {
   ];
 
 
-  const [items, setitems] = useState([1,2,4,5])
-  
+  const [items, setitems] = useState({
+    "_id": "61e5423fb6498a8fdeb8e6c5",
+    "title": "FGA",
+    "desc": "MFG",
+    "img": "null",
+    "categories": ["MFs"],
+    "size": "",
+    "color": "",
+    "price": 1,
+    
+  });
+  const parms = useParams();
+  let { id } = parms;
+    console.log(parms)
   useEffect(() => {
-    console.log('useEffworking')
+    
+    
     //function getData() {
-      axios.get('http://localhost:3000/product')
+      axios.get('http://localhost:3000/product/detail/'+id)
       .then((response) => {
         console.log(response.data);
         console.log(response.status);
@@ -108,31 +121,31 @@ export default function ProductDetails() {
 
       });
     //}
-  }, []);
+  }, [id]);
 
-  const parms = useParams();
-  let { pid } = parms;
-  const { price, id, category, name, specification, image } = products[parseInt(pid) - 1];
+ 
+  const { price, categories, title, desc } = items;
 
   return (
     <div>
-      <Table style={{}}>
-        <Row style={{}}>
+      <Table >
+        <Row >
           {" "}
           <Image src={img} style={{ width: "50%" }}></Image>{" "}
           <Col>
             <h2 style={{ paddingTop: 50, width: "75%", textAlign: "center" }}>
-              {name}
+              {title}
             </h2>
-            <></>
-            <Badge bg="primary">{category}</Badge>
+            <br></br>
+            
+            <Badge bg="primary">{categories}</Badge>
 
             <br></br>
             <br></br>
 
             <p style={{ textAlign: "justify", width: "70%" }}>
               {" "}
-              {specification}
+              {desc}
             </p>
             <h5 style={{ padding: 10 }}>Rs{price}</h5>
 

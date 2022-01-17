@@ -8,7 +8,7 @@ export default function CardComp({ product }) {
   let navigate = useNavigate();
   const detailsRoute = "/detalis/";
   const cardClick = () => navigate("detail/" + _id);
-
+  
   const { price, _id, categories, title, desc, images } = product;
   // const featured_image = images.length > 0 ? images[0].src : "";
   return (
