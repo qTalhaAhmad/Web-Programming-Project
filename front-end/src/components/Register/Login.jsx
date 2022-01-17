@@ -35,6 +35,7 @@ export default function Login() {
     const navigate=  useNavigate();
     const path= useLocation().pathname;
 const gotoRegister =() =>navigate("/user/Register");
+
 function handelSubmit(e){
    e.preventDefault();
 

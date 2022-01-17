@@ -16,6 +16,27 @@ import { Link } from 'react-router-dom';
 import logo from "./../../logo.svg"
 
 export default function AddProduct() {
+  const [productData, setproductData] 
+  = useState(
+    {"title":"yoyoy",
+    "desc":"",
+    "img":"",
+    "categories":[""],
+    "size":"",
+    "color":"",
+    "price":0})
+    function handelTitlechange(e) {
+      setproductData({...productData,"title":e.target.value})
+    }
+    function handeldescchange(e) {
+      setproductData({...productData,"desc":e.target.value})
+    }
+    function handelcategorieschange(e) {
+      setproductData({...productData,"categories":e.target.value})
+    }
+    function handelpricechange(e) {
+      setproductData({...productData,"price":parseInt( e.target.value)})
+    }
   const [imgPath, setimgPath] = useState(logo);
   const imageSubmit =(e)=>{
     setimgPath(URL.createObjectURL(e.target.files[0]));
@@ -48,6 +69,7 @@ export default function AddProduct() {
                               defaultValue=""
                               placeholder=""
                               type="text"
+                              onChange={handelTitlechange}
                             ></Form.Control>
                           </Form.Group>
                         </Col>
@@ -59,7 +81,9 @@ export default function AddProduct() {
                             <Form.Control
                               defaultValue=""
                               placeholder=""
-                              type="email"
+                              type="text"
+                              onChange={handelcategorieschange}
+                              
                             ></Form.Control>
                           </Form.Group>
 
@@ -69,12 +93,14 @@ export default function AddProduct() {
                       <Row className="pt-2">
                         <Col className="pl-1" >
                           <Form.Group>
-                            <label>Quatity</label>
+                            <label>Price</label>
                             <Form.Control
                               defaultValue=""
                               placeholder=""
                               type="number"
                               min="0"
+                              onChange={handelpricechange}
+
                             ></Form.Control>
                           </Form.Group>
                         </Col>
@@ -104,6 +130,8 @@ export default function AddProduct() {
                           defaultValue=""
                           placeholder="Product Detlais"
                           type="text"
+                              onChange={handeldescchange}
+
                         ></Form.Control>
                       </Form.Group>
                     </Col>
