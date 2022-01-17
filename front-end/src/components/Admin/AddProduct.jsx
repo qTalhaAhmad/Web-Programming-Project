@@ -1,16 +1,7 @@
 import { RemoveFromQueue } from '@material-ui/icons';
 import React, { useState } from 'react'
 import {
-  Badge,
-  Button,
-  Card,
-  Form,
-  Navbar,
-  Nav,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+  Badge,  Button,  Card,  Form,  Navbar,  Nav,  Container,  Row,  Col,} from "react-bootstrap";
 import axios from "axios"
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';

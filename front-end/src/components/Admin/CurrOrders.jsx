@@ -88,12 +88,11 @@ export default function CurrOrders() {
     },
   ];
 
-
   const [items, setitems] = useState([1,2,3,4])
 
   useEffect(() => {
     console.log('useEffCurrOrderAdmin')                               
-      axios.get('http://localhost:3001/admin/CurrOrders')                     //    link 
+      axios.get('http://localhost:3000/admin/pendingorder/view') 
       .then((response) => {
         console.log(response.data);
         console.log(response.status);
@@ -105,10 +104,9 @@ export default function CurrOrders() {
       });
   }, []);
 
-
   return (
         <Card style=
-        {{maxWidth:600 ,
+        {{maxWidth:700 ,
         margin:"auto",
         marginBottom:"20px"}} >
             <Card.Header
@@ -121,8 +119,9 @@ export default function CurrOrders() {
                
                 </Card.Title>
                  
-              </Card.Header>
-           {items.map((product)=>(<CurrCard product={product}/>))}
+      </Card.Header>
+      
+      {items.map((product)=>(<CurrCard product={product}/>))}
 
         
         </Card>
