@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const pendingorderSchema = new mongoose.Schema(
   {
-    userid: { type: String, required: true },
+    userid: { type: String},
     totalprice: { type: String, required: true},
     address:{ type: String, required: true },
     itemlist: [String],
     dateoforder:Date
-     },
+     }
   
 );
 

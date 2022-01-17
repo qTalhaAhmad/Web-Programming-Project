@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const onwayorderSchema = new mongoose.Schema(
   {
-    userid: { type: String, required: true, unique: true },
-    totalprice: { type: String, required: true, unique: true },
+    userid: { type: String},
+    totalprice: { type: String, required: true},
     address:{ type: String, required: true },
     itemlist: [String],
     dateofdelivery:Date,
