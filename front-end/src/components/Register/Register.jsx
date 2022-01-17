@@ -55,6 +55,7 @@ console.log(res.date);
    setformData({...formData,"address" :e.target.value})
    console.log(e.target.value);
    console.log(formData);
+   navigate("/");
  }
         
   const navigate=  useNavigate();

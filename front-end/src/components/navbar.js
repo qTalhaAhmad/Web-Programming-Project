@@ -32,7 +32,7 @@ export default function NavComp() {
     } else {
       setTypeLinks(userLinks);
     }
-  });
+  }, [path]);
   return (
     <>
       <Navbar className="navbar" id="navbar" bg="dark" variant="dark">
