@@ -182,7 +182,6 @@ router.post(
         {
           _id: globaluserid,
         },
-<<<<<<< HEAD
     {
       $push:{
         // this code is used when we have product id and quantity
@@ -198,31 +197,11 @@ router.post(
          product = await Product.findById(d);
          calculateprice+=product.price;
         
-=======
-        {
-          $push: {
-            // this code is used when we have product id and quantity
-            // cartitemlist:[{productId :req.params.prodid}]
-            currentorderlist: vvv,
-          },
-        }
-      );
-
-      //////////////  sending user order to pending order schema for admin
-
-      const newpendorder = new Pendorder({
-        userid: globaluserid,
-        totalprice: "520",
-        address: user1.address,
-        itemlist: vvv,
-        dateoforder: Date.now(),
->>>>>>> 670cc7e393cc96fdbb31d8f4ab8a636ca6d8b3dd
       });
 
       try {
         const savedpenorder = await newpendorder.save();
 
-<<<<<<< HEAD
 const newpendorder = new Pendorder({
   userid:globaluserid,
   totalprice:calculateprice,
@@ -230,12 +209,6 @@ const newpendorder = new Pendorder({
   itemlist:vvv,
   dateoforder:Date.now()
 });
-=======
-        //res.status(201).json(savedUser);
-      } catch (err) {
-        res.status(500).json(err);
-      }
->>>>>>> 670cc7e393cc96fdbb31d8f4ab8a636ca6d8b3dd
 
       /////////////
 
@@ -257,7 +230,6 @@ const newpendorder = new Pendorder({
       res.status(500).json(err);
     }
 
-<<<<<<< HEAD
   //res.status(201).json(savedUser);
 } catch (err) {
   res.status(500).json(err);
@@ -281,17 +253,10 @@ await User.findOneAndUpdate(
 )
 ////////////
 
-  }catch(err){
-    res.status(500).json(err);
-}
+  
         
  
 }); 
-=======
-    // User.findByIdAndUpdate(globaluserid, { prevorder : {...cartitemlist} })
-  }
-);
->>>>>>> 670cc7e393cc96fdbb31d8f4ab8a636ca6d8b3dd
 
 ////////  new modification  but not working
 
