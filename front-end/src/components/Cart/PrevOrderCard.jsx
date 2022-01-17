@@ -15,7 +15,7 @@ export default function PrevOrderCard({ product }) {
                         <h5> {_id}</h5>
                     </Col>
                    <Col  >
-                   <p>City</p>
+                   <p>Deliver Time</p>
                         <h5> {updatedAt}</h5>
                     </Col>
                     <Col>
