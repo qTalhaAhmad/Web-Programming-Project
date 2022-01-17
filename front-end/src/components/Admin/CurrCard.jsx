@@ -9,7 +9,7 @@ export default function CurrCard({ product }) {
     
     // send data from Pending Orders to Delivered Orders on button click Delivered
     function handleDeliver() {
-        axios.post("http://localhost:3000/admin//deliver/:orderid", product)
+        axios.post("http://localhost:3000/admin/deliver/"+_id)
             .then((err) => {
                 if (err) {
                     console.log(err);

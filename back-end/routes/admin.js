@@ -99,11 +99,11 @@ router.get(
 router.post(
   "/deliver/:orderid",
   /*verifyTokenAndAdmin,*/ async (req, res) => {
-    console.log(req.params.orderid);
+    //console.log(req.params.orderid);
     const penorder = await Pendorder.findOne({
       _id: req.params.orderid,
     });
-    console.log(penorder.userid);
+    //  console.log(penorder.userid);
 
     ////////  remove that product id from user currentorder list and move to prvious order  list
 
@@ -146,7 +146,7 @@ router.post(
 
       const saveddeliver = await newdeliverorder.save();
     } catch (err) {
-      //res.status(500).json(err);
+      return res.status(500).json(err);
       console.log("reach error");
     }
     //////////    now deleting that order from pending list
