@@ -7,9 +7,9 @@ import { useNavigate } from "react-router";
 export default function CardComp({ product }) {
   let navigate = useNavigate();
   const detailsRoute = "/detalis/";
-  const cardClick = () => navigate("details/" + id);
+  const cardClick = () => navigate("detail/" + _id);
 
-  const { price, id, categories, title, desc, images } = product;
+  const { price, _id, categories, title, desc, images } = product;
   // const featured_image = images.length > 0 ? images[0].src : "";
   return (
     <Card style={{ width: "300px", margin: 15 }} onClick={cardClick}>

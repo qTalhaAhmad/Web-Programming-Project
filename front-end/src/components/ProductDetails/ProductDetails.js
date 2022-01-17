@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import { useLocation, useParams } from "react-router";
 import { Table, Col, Image, Row, Button, Badge } from "react-bootstrap";
 import img from "../../logo.svg";
@@ -87,6 +88,28 @@ export default function ProductDetails() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+
+
+  const [items, setitems] = useState([1,2,4,5])
+  
+  useEffect(() => {
+    console.log('useEffworking')
+    //function getData() {
+      axios.get('http://localhost:3000/product')
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
+
+        
+        setitems(response.data);
+
+      });
+    //}
+  }, []);
+
   const parms = useParams();
   let { pid } = parms;
   const { price, id, category, name, specification, image } = products[parseInt(pid) - 1];
