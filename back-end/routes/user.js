@@ -145,8 +145,18 @@ router.post(
     console.log(globaluserid);
     console.log("after try");
 
-    try {
+    
       const user1 = await User.findOne(
+          {
+              _id: globaluserid,
+          },
+          
+      );
+     const vvv = [...user1.cartitemlist];
+     console.log(vvv);
+
+  
+       await User.findOneAndUpdate(
         {
           _id: globaluserid,
         },
@@ -160,56 +170,38 @@ router.post(
       );
 
       //////////////  sending user order to pending order schema
-      const newPendorder = new Pendorder({
-        userid: globaluserid,
-        totalprice: 40,
-        address: user1.address,
-        itemlist: vvv,
-        dateoforder: Date(),
-      });
+      // calculating total  new modification
+      let price=0;
+     fun=async()=>{ 
+  user1.cartitemlist.forEach( async (d)  =>{
+          product = await Product.findById(d);
 
+         price = price + product.price;
+       
+    }).then
+     return  price;
+  }
+  
+
+  const p=awa
+
+  
+
+    
+      const newPendorder = new Pendorder({
+        userid:globaluserid,
+        totalprice:40,
+        address:user1.address,
+        itemlist:vvv,
+        dateoforder:Date()
+      });
+      
       try {
         const savedPendorder = await newPendorder.save();
         res.json(savedPendorder);
       } catch (err) {
         res.status(500).json(err);
-      }
-
-      /////////////
-
-      //////  making user cart item list empty
-      await User.findOneAndUpdate(
-        {
-          _id: globaluserid,
-        },
-    {
-      $push:{
-        // this code is used when we have product id and quantity
-        // cartitemlist:[{productId :req.params.prodid}]
-      currentorderlist:vvv
-        
-      }}
-  )
-      // calculating total  new modification
-      var calculateprice=0;
- 
-      user1.currentorderlist.forEach(async function (d){   
-         product = await Product.findById(d);
-         calculateprice+=product.price;
-        
-      });
-
-      try {
-        const savedpenorder = await newpendorder.save();
-
-const newpendorder = new Pendorder({
-  userid:globaluserid,
-  totalprice:calculateprice,
-  address:user1.address,
-  itemlist:vvv,
-  dateoforder:Date.now()
-});
-
+      }    
       /////////////
 
       //////  making user cart item list empty
@@ -226,34 +218,11 @@ const newpendorder = new Pendorder({
         }
       );
       ////////////
-    } catch (err) {
-      res.status(500).json(err);
-    }
+  
 
-  //res.status(201).json(savedUser);
-} catch (err) {
-  res.status(500).json(err);
-}
 
 /////////////
 
-//////  making user cart item list empty
-await User.findOneAndUpdate(
-
-  {
-
-   _id:globaluserid
-      },
-  {
-    $set:{
-      // this code is used when we have product id and quantity
-      // cartitemlist:[{productId :req.params.prodid}]
-    cartitemlist:[]
-    }}
-)
-////////////
-
-  
         
  
 }); 
