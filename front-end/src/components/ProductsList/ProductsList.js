@@ -79,10 +79,10 @@ export default function ProductsList() {
     },
   ];
 
-  const [items, setitems] = useState([1,2,4,5])
+  const [items, setitems] = useState([1,2,3,4])
   
   useEffect(() => {
-    console.log('useEffworking')
+    console.log('useEffProdList')
     //function getData() {
       axios.get('http://localhost:3000/product')
       .then((response) => {
@@ -96,7 +96,7 @@ export default function ProductsList() {
         setitems(response.data);
 
       });
-    //}
+    
   }, []);
 
   return (
@@ -116,7 +116,6 @@ export default function ProductsList() {
           style={{ display: "justify" }}
           id="itemsList"
           className="itemsList"
-          //onLoad={getData}
         >
           <Grid
             container

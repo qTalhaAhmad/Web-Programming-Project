@@ -89,25 +89,26 @@ export default function ProductDetails() {
     },
   ];
 
-
   const [items, setitems] = useState({
-    "_id": "61e5423fb6498a8fdeb8e6c5",
-    "title": "FGA",
-    "desc": "MFG",
-    "img": "null",
-    "categories": ["MFs"],
-    "size": "",
-    "color": "",
-    "price": 1,
+    // "_id": "61e5423fb6498a8fdeb8e6c5",
+    // "title": "FGA",
+    // "desc": "MFG",
+    // "img": "null",
+    // "categories": ["MFs"],
+    // "size": "",
+    // "color": "",
+    // "price": 1,
     
   });
+
   const parms = useParams();
+
   let { id } = parms;
     console.log(parms)
+
   useEffect(() => {
-    
-    
-    //function getData() {
+      
+      console.log('useEffProdDetl')
       axios.get('http://localhost:3000/product/detail/'+id)
       .then((response) => {
         console.log(response.data);
@@ -115,7 +116,6 @@ export default function ProductDetails() {
         console.log(response.statusText);
         console.log(response.headers);
         console.log(response.config);
-
         
         setitems(response.data);
 
@@ -123,7 +123,6 @@ export default function ProductDetails() {
     //}
   }, [id]);
 
- 
   const { price, categories, title, desc } = items;
 
   return (

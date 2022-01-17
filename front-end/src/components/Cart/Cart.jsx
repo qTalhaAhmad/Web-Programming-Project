@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import CartCard from './CartCard'
 import { Button, Card } from 'react-bootstrap';
 export default function Cart() {
@@ -86,8 +87,25 @@ export default function Cart() {
     },
   ];
 
+  // const [items, setitems] = useState([1,2,3,4])
 
+  // useEffect(() => {
+  //   console.log('useEffCart')
+  //   //function getData() {
+  //     axios.get('http://localhost:3000/product')
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       console.log(response.status);
+  //       console.log(response.statusText);
+  //       console.log(response.headers);
+  //       console.log(response.config);
 
+        
+  //       setitems(response.data);
+
+  //     });
+    
+  // }, []);
 
 
 

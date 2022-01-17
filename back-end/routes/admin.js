@@ -43,9 +43,9 @@ router.post("/login", async (req, res) => {
       password: req.body.password,
     });
 
-    console.log("hello    world ");
+    // console.log("hello    world ");
 
-    console.log("hello    world ");
+    console.log("hello world ");
 
     const inputPassword = req.body.password;
     /*
