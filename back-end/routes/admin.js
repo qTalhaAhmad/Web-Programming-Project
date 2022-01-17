@@ -137,11 +137,13 @@ router.post("/deliver/:orderid", /*verifyTokenAndAdmin,*/ async (req, res) => {
         }
       )
 
+    
+
 ////////////
   
   const newdeliverorder = new deliverorder({
     userid:penorder.userid,
-    totalprice:'520',
+    totalprice:penorder.totalprice,
     address:penorder.address,
     itemlist:penorder.itemlist,
     dateofdelivery:Date.now()

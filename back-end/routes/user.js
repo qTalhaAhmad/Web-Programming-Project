@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Product = require("../models/Product");
 
 const Pendorder = require("../models/Pendingorder");
 /*const {
@@ -153,15 +154,20 @@ router.post("/order/:prodid", /*verifyTokenAndAdmin,*/ async (req, res) => {
         
       }}
   )
-
+      // calculating total  new modification
+      var calculateprice=0;
  
-
+      user1.currentorderlist.forEach(async function (d){   
+         product = await Product.findById(d);
+         calculateprice+=product.price;
+        
+      });
 
 //////////////  sending user order to pending order schema for admin
 
 const newpendorder = new Pendorder({
   userid:globaluserid,
-  totalprice:'520',
+  totalprice:calculateprice,
   address:user1.address,
   itemlist:vvv,
   dateoforder:Date.now()
@@ -198,11 +204,44 @@ await User.findOneAndUpdate(
     res.status(500).json(err);
 }
         
-
-
- // User.findByIdAndUpdate(globaluserid, { prevorder : {...cartitemlist} })
  
 }); 
+
+////////  new modification  but not working
+
+
+router.get("/detail/:id", async (req, res) => {
+
+  const user1 = await User.findOne(
+    {
+        _id: globaluserid,
+    },
+    
+);
+var product='61d25e75ca0f11c405214952'; 
+var count=0;
+ 
+      user1.currentorderlist.forEach(async function (d){
+      //  try {
+          
+         
+         product = await Product.findById(d);
+         count+=product.price;
+         console.log("product id :"+count);
+         // res.status(200).json(d);
+
+        //} catch (err) {
+         // console.log("error occured");
+       // }
+      });
+
+      
+   }
+   )
+
+  
+
+///////////
 
 //REGISTER
 router.post("/register", async (req, res) => {
