@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import { Grid } from "@mui/material";
 import CardComp from "./card";
 
@@ -78,6 +79,21 @@ export default function ProductsList() {
     },
   ];
 
+    
+  useEffect(() => {
+    console.log('meganduhuubeshak')
+    //function getData() {
+      axios.get('http://localhost:3000/product')
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
+      });
+    //}
+  }, []);//products
+
   return (
     <div>
       <h1
@@ -95,6 +111,7 @@ export default function ProductsList() {
           style={{ display: "justify" }}
           id="itemsList"
           className="itemsList"
+          //onLoad={getData}
         >
           <Grid
             container
