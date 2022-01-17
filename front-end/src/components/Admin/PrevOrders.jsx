@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import PrevOrderCard from '../Cart/PrevOrderCard'
 import { Button, Card } from 'react-bootstrap';
+
 export default function PrevOrders() {
     const products = [
     {
@@ -85,11 +87,28 @@ export default function PrevOrders() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+  
+  useEffect(() => {
+    console.log('meganduhuubeshak')
+    //function getData() {
+      axios.get('localhost:3000/product/')
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    //}
+  }, []);//products
+
   return (
         <Card style=
         {{maxWidth:600 ,
         margin:"auto",
-        marginBottom:"20px"}} >
+        marginBottom: "20px",
+      }      } >
+      
+        
             <Card.Header>
                 <Card.Title 
                 as="h4" 
