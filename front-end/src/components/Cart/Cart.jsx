@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import CartCard from './CartCard'
 import { Button, Card } from 'react-bootstrap';
+
+// const nodeMMMs = require("./nodeMM");
+
 export default function Cart() {
     const products = [
     {

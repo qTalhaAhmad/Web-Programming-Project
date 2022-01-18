@@ -21,9 +21,7 @@ export default function prevOrdersCardAd({ product }) {
                     </Col>
                     <Col>
                     {`Rs: ${totalprice}`}
-                    </Col>
-                    
-                    
+                    </Col>                 
                 </Row>
             </Card>
         </div>

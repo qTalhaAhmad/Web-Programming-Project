@@ -110,7 +110,8 @@ export default function PrevOrder() {
         <Card style=
         {{maxWidth:600 ,
         margin:"auto",
-        marginBottom:"20px"}} >
+        marginBottom: "20px"
+      }} >
             <Card.Header>
                 <Card.Title 
                 as="h4" 
@@ -119,8 +120,6 @@ export default function PrevOrder() {
                 </Card.Title>
               </Card.Header>
            {items.map((product)=>(<PrevOrderCard product={product}/>))}
-
-        
         </Card>
     )
 }

@@ -4,12 +4,12 @@ import axios from "axios"
 
 export default function CurrCard({ product }) { 
     console.log(product);
-    const { _id, totalprice, address  } = product;
+    const { _id, totalprice, address, categories  } = product;
 
     
     // send data from Pending Orders to Delivered Orders on button click Delivered
     function handleDeliver() {
-        axios.post("http://localhost:3000/admin/deliver/"+_id)
+        axios.post("http://localhost:3000/admin/deliver/"+_id)        // not sure about something here reminder
             .then((err) => {
                 if (err) {
                     console.log(err);

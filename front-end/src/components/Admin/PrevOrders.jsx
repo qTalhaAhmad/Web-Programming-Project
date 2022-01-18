@@ -104,14 +104,14 @@ export default function PrevOrders() {
       });
   }, []);//products
 
+
+
   return (
         <Card style=
         {{maxWidth:600 ,
         margin:"auto",
         marginBottom: "20px",
       }      } >
-      
-        
             <Card.Header>
                 <Card.Title 
                 as="h4" 
@@ -119,9 +119,7 @@ export default function PrevOrders() {
                 Your Delivered Orders
                 </Card.Title>
               </Card.Header>
-           {items.map((product)=>(<PrevOrdersCardAd product={product}/>))}
-
-        
+           {items.map((product)=>(<PrevOrdersCardAd product={product}/>))}       
         </Card>
     )
 }

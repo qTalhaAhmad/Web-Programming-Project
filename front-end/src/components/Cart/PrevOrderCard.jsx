@@ -1,6 +1,7 @@
 import React from 'react'
 import {Card,Col,Row,Button, Badge} from "react-bootstrap"
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
 export default function PrevOrderCard({ product }) {
     
     console.log(product);
@@ -17,12 +18,11 @@ export default function PrevOrderCard({ product }) {
                    <Col  >
                    <p>Deliver Time</p>
                         <h5> {updatedAt}</h5>
+                        {/* // deliever time? */}
                     </Col>
                     <Col>
                     {`Rs: ${price}`}
-                    </Col>
-                    
-                    
+                    </Col>                                        
                 </Row>
             </Card>
         </div>
