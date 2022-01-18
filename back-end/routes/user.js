@@ -311,8 +311,8 @@ router.post("/login", async (req, res) => {
 router.get(
   "/cart",
   /*verifyTokenAndAdmin,*/ async (req, res) => {
-    console.log(globaluserid);
-    console.log("after try");
+    // console.log(globaluserid);
+    // console.log("after try");
 
     const user1 = await User.findOne({
       _id: globaluserid,

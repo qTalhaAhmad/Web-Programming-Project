@@ -39,20 +39,22 @@ const gotoRegister =() =>navigate("/user/Register");
 function handelSubmit(e){
    e.preventDefault();
 
-axios.post('http://localhost:3000/user/login',{...login}).then((res)=>{
-console.log("response"+res);
-console.log(res.data);
+axios.post('http://localhost:3000/user/login',{...login}).then((err)=>{
 
-  });
-if (path.search("admin")>0){
+// console.log("response"+res);
+// console.log(res.data);}
+  if (path.search("admin")>0){
       navigate("/admin/currOrders")
        window.location.reload();
 }
 else{
       navigate("/listing")
-       window.location.reload();
+      window.location.reload();
 
 }
+}
+  );
+
 }
 const [type, settype] = useState("user");
 const [typeLink,   settypeLink]  = useState("/")
@@ -139,6 +141,6 @@ else{
       </Container>
       <Outlet />
     </>
-        
     )
-}
+
+    }
