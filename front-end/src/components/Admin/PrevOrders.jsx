@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import PrevOrderCard from '../Cart/PrevOrderCard'
+import PrevOrdersCardAd from '../Cart/PrevOrdersCardAd'
 import { Button, Card } from 'react-bootstrap';
 
 export default function PrevOrders() {
@@ -88,17 +88,20 @@ export default function PrevOrders() {
     },
   ];
   
+  const [items, setitems] = useState([1,2,3,4])
+
   useEffect(() => {
-    console.log('meganduhuubeshak')
-    //function getData() {
-      axios.get('localhost:3000/product/')
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    //}
+    console.log('toobatooba')
+
+    axios.get('http://localhost:3000/admin/deliveredorder/')
+      .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);
+        setitems(response.data);
+      });
   }, []);//products
 
   return (
@@ -116,7 +119,7 @@ export default function PrevOrders() {
                 Your Delivered Orders
                 </Card.Title>
               </Card.Header>
-           {products.map((product)=>(<PrevOrderCard product={product}/>))}
+           {items.map((product)=>(<PrevOrdersCardAd product={product}/>))}
 
         
         </Card>

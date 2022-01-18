@@ -12,4 +12,3 @@ const onwayorderSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model("onwayorder", onwayorderSchema);
-

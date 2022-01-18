@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useLocation, useParams } from "react-router";
 import { Table, Col, Image, Row, Button, Badge } from "react-bootstrap";
 import img from "../../logo.svg";
@@ -87,34 +88,55 @@ export default function ProductDetails() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+
+  const [items, setitems] = useState({});
+
   const parms = useParams();
-  let { pid } = parms;
-  const { price, id, category, name, specification, image } =
-    products[parseInt(pid) - 1];
+
+  let { id } = parms;
+  console.log(parms);
+
+  useEffect(() => {
+    console.log("useEffProdDetl");
+    axios.get("http://localhost:3000/product/detail/" + id).then((response) => {
+      console.log(response.data);
+      console.log(response.status);
+      console.log(response.statusText);
+      console.log(response.headers);
+      console.log(response.config);
+
+      setitems(response.data);
+    });
+    //}
+  }, [id]);
+  function handelAddtoCart() {
+    axios.post("http://localhost:3000/user/addtocart/" + id);
+  }
+  const { price, categories, title, desc } = items;
 
   return (
     <div>
-      <Table style={{}}>
-        <Row style={{}}>
+      <Table>
+        <Row>
           {" "}
           <Image src={img} style={{ width: "50%" }}></Image>{" "}
           <Col>
             <h2 style={{ paddingTop: 50, width: "75%", textAlign: "center" }}>
-              {name}
+              {title}
             </h2>
-            <></>
-            <Badge bg="primary">{category}</Badge>
+            <br></br>
+
+            <Badge bg="primary">{categories}</Badge>
 
             <br></br>
             <br></br>
 
-            <p style={{ textAlign: "justify", width: "70%" }}>
-              {" "}
-              {specification}
-            </p>
+            <p style={{ textAlign: "justify", width: "70%" }}> {desc}</p>
             <h5 style={{ padding: 10 }}>Rs{price}</h5>
 
-            <Button variant="outline-success">Add to Cart</Button>
+            <Button variant="outline-success" onClick={handelAddtoCart}>
+              Add to Cart
+            </Button>
           </Col>
         </Row>
       </Table>

@@ -153,114 +153,108 @@ jwt.verify(req.token, 'secretkey',async (err, authData) => {
 
 ////   user/order/222        user make order   /// total price function need to be set
 router.post(
-  "/order/:prodid",
+  "/orders",
   /*verifyTokenAndAdmin,*/ async (req, res) => {
-    console.log(req.params.prodid);
     console.log(globaluserid);
     console.log("after try");
 
-    
-      const user1 = await User.findOne(
-          {
-              _id: globaluserid,
-          },
-          
-      );
-     const vvv = [...user1.cartitemlist];
-     console.log(vvv);
+    const user1 = await User.findOne({
+      _id: globaluserid,
+    });
+    const vvv = [...user1.cartitemlist];
+    console.log(vvv);
 
-  
-       await User.findOneAndUpdate(
-        {
-          _id: globaluserid,
+    await User.findOneAndUpdate(
+      {
+        _id: globaluserid,
+      },
+      {
+        $push: {
+          // this code is used when we have product id and quantity
+          // cartitemlist:[{productId :req.params.prodid}]
+          currentorderlist: vvv,
         },
-        {
-          $push: {
-            // this code is used when we have product id and quantity
-            // cartitemlist:[{productId :req.params.prodid}]
-            currentorderlist: vvv,
-          },
-        }
-      );
-
-      //////////////  sending user order to pending order schema
-      // calculating total  new modification
-     
-     
-
-
-    
-
+      }
+    ).then(async () => {
       const newPendorder = new Pendorder({
-        userid:globaluserid,
-        totalprice:40,
-        address:user1.address,
-        itemlist:vvv,
-        dateoforder:Date()
+        userid: globaluserid,
+        totalprice: Math.floor(Math.random() * 500),
+        address: user1.address,
+        itemlist: vvv,
+        dateoforder: Date(),
       });
-      
+
       try {
+        await User.findOneAndUpdate(
+          {
+            _id: globaluserid,
+          },
+          {
+            $set: {
+              // this code is used when we have product id and quantity
+              // cartitemlist:[{productId :req.params.prodid}]
+              cartitemlist: [],
+            },
+          }
+        );
         const savedPendorder = await newPendorder.save();
-        res.json(savedPendorder);
+        return res.json(savedPendorder);
       } catch (err) {
-        res.status(500).json(err);
-      }    
+        return res.status(500).json(err);
+      }
       /////////////
 
       //////  making user cart item list empty
-      await User.findOneAndUpdate(
-        {
-          _id: globaluserid,
-        },
-        {
-          $set: {
-            // this code is used when we have product id and quantity
-            // cartitemlist:[{productId :req.params.prodid}]
-            cartitemlist: [],
-          },
-        }
-      );
+
       ////////////
-  
 
+      /////////////
+    });
 
-/////////////
+    //////////////  sending user order to pending order schema
+    ///////
+    ///
+    // calculating total  new modification
+    //     let price=0;
+    //    fun=async()=>{
+    // user1.cartitemlist.forEach( async (d)  =>{
+    //         product = await Product.findById(d);
 
-        
- 
-}); 
+    //        price = price + product.price;
+
+    //   }).then
+    //    return  price;
+    // }
+    ///
+    //
+    //
+    //
+    //
+    //
+    //
+  }
+);
 
 ////////  new modification  but not working
 
-
 router.get("/detail/:id", async (req, res) => {
+  const user1 = await User.findOne({
+    _id: globaluserid,
+  });
+  var product = "61d25e75ca0f11c405214952";
+  var count = 0;
 
-  const user1 = await User.findOne(
-    {
-        _id: globaluserid,
-    },
-    
-);
-var product='61d25e75ca0f11c405214952'; 
-var count=0;
-    
-      user1.currentorderlist.forEach(async function (d){
-      //  try {
-          
-         
-         product = await Product.findById(d);
-         count+=product.price;
-         console.log("product id :"+count);
-         // res.status(200).json(d);
+  user1.currentorderlist.forEach(async function (d) {
+    //  try {
 
-        //} catch (err) {
-         // console.log("error occured");
-       // }
-      });
+    product = await Product.findById(d);
+    count += product.price;
+    console.log("product id :" + count);
+    // res.status(200).json(d);
 
       
    }
-   )
+   )})
 ////
 function verifyToken(req, res, next) {
   // Get auth header value
@@ -360,5 +354,73 @@ router.post("/login", async (req, res) => {
   }
 
 });
+//get cart list
+router.get(
+  "/cart",
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
+    // console.log(globaluserid);
+    // console.log("after try");
 
+    const user1 = await User.findOne({
+      _id: globaluserid,
+    });
+    let arr = user1.cartitemlist;
+
+    const ids = await user1.cartitemlist;
+
+    const userDetailsPromises = ids.map(
+      async (id) => await Product.findById(id)
+    );
+    const userDetails = await Promise.all(userDetailsPromises);
+
+    return res.status(200).json(userDetails);
+  }
+);
+
+///get curr orders
+router.get(
+  "/currOrder",
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
+    console.log(globaluserid);
+    console.log("after try");
+
+    const user1 = await User.findOne({
+      _id: globaluserid,
+    });
+    let arr = user1.cartitemlist;
+
+    const ids = await user1.currentorderlist;
+
+    const userDetailsPromises = ids.map(
+      async (id) => await Product.findById(id)
+    );
+    const userDetails = await Promise.all(userDetailsPromises);
+
+    return res.status(200).json(userDetails);
+  }
+);
+
+//get previous orders
+router.get(
+  "/prevOrders",
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
+    console.log(globaluserid);
+    console.log("after try");
+
+    const user1 = await User.findOne({
+      _id: globaluserid,
+    });
+    let arr = user1.cartitemlist;
+
+    const ids = await user1.prevorder;
+
+    const userDetailsPromises = ids.map(
+      async (id) => await Product.findById(id)
+    );
+    const userDetails = await Promise.all(userDetailsPromises);
+
+    return res.status(200).json(userDetails);
+  }
+
+);
 module.exports = router;

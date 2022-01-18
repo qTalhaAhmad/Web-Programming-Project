@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import CartCard from './CartCard'
 import { Button, Card } from 'react-bootstrap';
 export default function Cart() {
@@ -85,21 +86,40 @@ export default function Cart() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
+ function handleCheckout(){
+   axios.post("http://localhost:3000/user/orders")
+ }
+  const [items, setitems] = useState([1,2,3,4])
 
+  useEffect(() => {
+    console.log('useEffCartUser')
 
+      axios.get('http://localhost:3000/user/cart')                      
+    
+        .then((response) => {
+        console.log(response.data);
+        console.log(response.status);
+        console.log(response.statusText);
+        console.log(response.headers);
+        console.log(response.config);      
+        setitems(response.data);
 
-
-
-
+      });
+  }, []);
 
   return (
         <Card style={{maxWidth:600 ,margin:"auto",marginBottom:"20px" }} >
             <Card.Header>
                 <Card.Title as="h4" className='pt-2'>Checkout Cart</Card.Title>
               </Card.Header>
-           {products.map((product)=>(<CartCard product={product}/>))}
+           {items.map((product)=>(<CartCard product={product}/>))}
 
-           <Button style={{ marginLeft:"10px",marginTop:"5px",marginBottom:"10px" ,width:"25%" ,paddingLeft:"10px"}} className="ml-4" varinet="success">CheckOut</Button>
+           <Button 
+           style={{ marginLeft:"10px",marginTop:"5px",marginBottom:"10px" ,width:"25%" ,paddingLeft:"10px"}}
+            className="ml-4"
+             varinet="success"
+             onClick={handleCheckout}
+             >CheckOut</Button>
         </Card>
     )
 }

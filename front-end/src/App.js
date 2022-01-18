@@ -15,7 +15,7 @@ import AddProduct from "./components/Admin/AddProduct";
 function App() {
   return (
     <Routes>
-      <Route path=":listing" element={<ProductsList />} />
+      <Route path="/listing" element={<ProductsList />} />
       <Route path="/user/profile" element={<Profile />} />
       <Route path="/user/Cart" element={<Cart />} />
       <Route path="/user/PrevOrders" element={<PrevOrder />} />
@@ -24,7 +24,7 @@ function App() {
       <Route path="/user/Register" element={<Register />} />
       <Route path="/" element={<Login />} />
       <Route path="/admin/login" element={<Login />} />
-      <Route path="/details/:pid" element={<ProductDetails />} />
+      <Route path="/listing/detail/:id" element={<ProductDetails />} />
       <Route path="/admin/currOrders" element={<CurrOrders />} />
       <Route path="/admin/prevOrders" element={<PrevOrders />} />
     </Routes>

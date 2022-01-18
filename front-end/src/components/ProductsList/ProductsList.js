@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Grid } from "@mui/material";
 import CardComp from "./card";
-
+import { Button } from "react-bootstrap";
 export default function ProductsList() {
   const products = [
     {
@@ -78,21 +78,26 @@ export default function ProductsList() {
       specification: "",
     },
   ];
-
-    
+  const [totalPages, setTotalPages] = useState(1);
+  const [CurrPage, setCurrPage] = useState(1);
+  const [items, setitems] = useState([1, 2, 3, 4]);
+  const [data, setdate] = useState([1, 2, 3, 4]);
   useEffect(() => {
-    console.log('meganduhuubeshak')
+    console.log("useEffProdList");
     //function getData() {
-      axios.get('http://localhost:3000/product')
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.status);
-        console.log(response.statusText);
-        console.log(response.headers);
-        console.log(response.config);
-      });
-    //}
-  }, []);//products
+    axios.get("http://localhost:3000/product").then(async (response) => {
+      // console.log(response.data);
+      //console.log(response.status);
+      // console.log(response.statusText);
+      // console.log(response.headers);
+      // console.log(response.config);
+
+      setitems(response.data);
+      setTotalPages(parseInt(items.length / 8 + 1));
+
+      console.log(totalPages);
+    });
+  }, []);
 
   return (
     <div>
@@ -107,23 +112,106 @@ export default function ProductsList() {
         Products
       </h1>
       <div id="Body" className="body" style={{ marginLeft: "40px" }}>
-        <span
+        {/* <span
           style={{ display: "justify" }}
           id="itemsList"
           className="itemsList"
-          //onLoad={getData}
-        >
-          <Grid
+        > */}
+        {/* <Grid
             container
+            style={{ display: "flex" }}
             justify="center"
             spacing={4}
             style={{ marginTop: "20px" }}
+          > */}
+        <Pagination
+          style={{ display: "flex" }}
+          data={items}
+          // RenderComponent={Post}
+          //title="Posts"
+          pageLimit={totalPages}
+          dataLimit={8}
+        />
+        {/* </Grid> */}
+        {/* </span> */}
+      </div>
+    </div>
+  );
+}
+
+function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
+  const [pages] = useState(Math.round(data.length / dataLimit));
+  const [currentPage, setCurrentPage] = useState(1);
+
+  function goToNextPage() {
+    setCurrentPage((page) => page + 1);
+    console.log(currentPage);
+  }
+
+  function goToPreviousPage() {
+    setCurrentPage((page) => page - 1);
+  }
+
+  function changePage(event) {
+    const pageNumber = Number(event.target.textContent);
+    setCurrentPage(pageNumber);
+  }
+
+  const getPaginatedData = () => {
+    const startIndex = currentPage * dataLimit - dataLimit;
+    const endIndex = startIndex + dataLimit;
+    return data.slice(startIndex, endIndex);
+  };
+
+  const getPaginationGroup = () => {
+    let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+    return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
+  };
+
+  return (
+    <div>
+      <span style={{ display: "justify" }} id="itemsList" className="itemsList">
+        <Grid
+          container
+          style={{ display: "flex" }}
+          justify="center"
+          spacing={4}
+          style={{ marginTop: "20px" }}
+        >
+          {getPaginatedData().map((product) => (
+            <CardComp key={product.id} product={product} />
+          ))}
+        </Grid>
+      </span>
+      <div className="pagination">
+        {/* previous Button */}
+        <Button
+          onClick={goToPreviousPage}
+          className={`prev ${currentPage === 1 ? "disabled" : ""}`}
+        >
+          prev
+        </Button>
+
+        {/* show page numbers */}
+        {getPaginationGroup().map((item, index) => (
+          <Button
+            key={index}
+            onClick={changePage}
+            className={`paginationItem ${
+              currentPage === item ? "active" : null
+            }`}
           >
-            {products.map((product) => (
-              <CardComp key={product.id} product={product} />
-            ))}
-          </Grid>
-        </span>
+            <span>{item}</span>
+          </Button>
+        ))}
+
+        {/* next Button */}
+        <Button
+          onClick={goToNextPage}
+          // className={`next ${currentPage === pages ? "disabled" : ""}`}
+        >
+          next
+        </Button>
       </div>
     </div>
   );

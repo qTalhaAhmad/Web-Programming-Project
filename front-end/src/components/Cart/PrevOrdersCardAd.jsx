@@ -1,28 +1,28 @@
 import React from 'react'
 import {Card,Col,Row,Button, Badge} from "react-bootstrap"
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-export default function CartCard({ product }) {
+
+export default function prevOrdersCardAd({ product }) {
     
-    const { price, title, categories } = product;
+    console.log(product);
+    const { _id, totalprice, dateofdelivery } = product;
     
     return (
         <div>
             <Card style={{ margin:"10px" ,paddingLeft:"10px"}} >
                 <Row className='mt-3'>
                     <Col className>
-                    <p>Title</p>
-                        <h5> {title}</h5>
+                    <p>Product ID</p>
+                        <h5> {_id}</h5>
                     </Col>
                    <Col  >
-                   <p>Category</p>
-                    <Badge className='p-2'>{categories}</Badge>
+                   <p>Deliver Time</p>
+                        <h5> {dateofdelivery}</h5>
                     </Col>
                     <Col>
-                    {`Rs: ${price}`}
+                    {`Rs: ${totalprice}`}
                     </Col>
-                    <Col >
-                 <DeleteForeverIcon />
-                    </Col>
+                    
                     
                 </Row>
             </Card>
