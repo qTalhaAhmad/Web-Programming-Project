@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Grid } from "@mui/material";
 import CardComp from "./card";
 
@@ -78,26 +78,24 @@ export default function ProductsList() {
       specification: "",
     },
   ];
+  const [totalPages, setTotalPages] = useState(1);
+  const [items, setitems] = useState([1, 2, 3, 4]);
 
-  const [items, setitems] = useState([1,2,3,4])
-  
   useEffect(() => {
-    console.log('useEffProdList')
+    console.log("useEffProdList");
     //function getData() {
-      axios.get('http://localhost:3000/product')
-      .then((response) => {
-        console.log(response.data);
-        console.log(response.status);
-        console.log(response.statusText);
-        console.log(response.headers);
-        console.log(response.config);
+    axios.get("http://localhost:3000/product").then((response) => {
+      // console.log(response.data);
+      //console.log(response.status);
+      // console.log(response.statusText);
+      // console.log(response.headers);
+      // console.log(response.config);
 
-        
-        setitems(response.data);
-
-      });
-    
-  }, []);
+      setitems(response.data);
+      setTotalPages(parseInt(items.length / 8 + 1));
+      console.log(totalPages);
+    });
+  }, [totalPages, items.length]);
 
   return (
     <div>
