@@ -18,11 +18,11 @@ import { useNavigate,useLocation } from 'react-router';
     
 export default function Login() {
   const [login, setlogin] = useState({
-        "userName":"",
+        "username":"",
         "password":""
     })
     function handleChangeUsername(e){
-      setlogin({...login,"userName": e.target.value});
+      setlogin({...login,"username": e.target.value});
    console.log(login)
 
     }
