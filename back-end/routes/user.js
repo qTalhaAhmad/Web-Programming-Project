@@ -162,12 +162,9 @@ router.post(
         },
       }
     ).then(async () => {
-      // console.log('fuck')
-      // const p = awa
-
       const newPendorder = new Pendorder({
         userid: globaluserid,
-        totalprice: 40,
+        totalprice: Math.floor(Math.random() * 500),
         address: user1.address,
         itemlist: vvv,
         dateoforder: Date(),
