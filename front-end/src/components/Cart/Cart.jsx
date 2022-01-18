@@ -3,7 +3,7 @@ import axios from 'axios'
 import CartCard from './CartCard'
 import { Button, Card } from 'react-bootstrap';
 
-// const nodeMMMs = require("./nodeMM");
+
 
 export default function Cart() {
     const products = [
@@ -89,9 +89,11 @@ export default function Cart() {
         "THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product THis is the product specfication and here we write 3 line ablut the product",
     },
   ];
- function handleCheckout(){
+ 
+  function handleCheckout() {
    axios.post("http://localhost:3000/user/orders")
     window.location.reload();
+
  }
   const [items, setitems] = useState([1,2,3,4])
 
