@@ -2,6 +2,11 @@ const User = require("../models/User");
 const Product = require("../models/Product");
 
 const Pendorder = require("../models/Pendingorder");
+const bcrypt=require('bcryptjs');
+
+const jwt=require('jsonwebtoken');
+
+
 /*const {
   verifyToken,
   verifyTokenAndAuthorization,
@@ -11,6 +16,7 @@ const Pendorder = require("../models/Pendingorder");
 
 const router = require("express").Router();
 var globaluserid = "61d25e75ca0f11c405214952";
+var global = "1";
 
 //UPDATE user
 router.put(
@@ -116,7 +122,13 @@ router.get(
 
 router.post(
   "/addtocart/:prodid",
-  /*verifyTokenAndAdmin,*/ async (req, res) => {
+  /*verifyTokenAndAdmin,*/ verifyToken,async (req, res) => {
+
+///////////////////////////
+jwt.verify(req.token, 'secretkey',async (err, authData) => {
+ 
+
+//////////////////////////
     res.send("we are on cart");
     console.log(req.params.prodid);
 
@@ -135,7 +147,9 @@ router.post(
       }
     );
   }
-);
+)
+
+  });
 
 ////   user/order/222        user make order   /// total price function need to be set
 router.post(
@@ -238,24 +252,45 @@ router.get("/detail/:id", async (req, res) => {
     console.log("product id :" + count);
     // res.status(200).json(d);
 
-    //} catch (err) {
-    // console.log("error occured");
-    // }
-  });
-});
+      
+   }
+   )})
+////
+function verifyToken(req, res, next) {
+  // Get auth header value
+  const bearerHeader = req.headers['authorization'];
+  // Check if bearer is undefined
+  if(typeof bearerHeader !== 'undefined') {
+    // Split at the space
+    const bearer = bearerHeader.split(' ');
+    // Get token from array
+    const bearerToken = bearer[1];
+    // Set the token
+    req.token = bearerToken;
+    // Next middleware
+    next();
+  } else {
+    // Forbidden
+    res.sendStatus(403);
+  }
+
+}
 
 ///////////
 
 //REGISTER
 router.post("/register", async (req, res) => {
   res.send("we are on register");
-  console.log(req.body.username);
-  console.log(req.body.email);
+ 
+     const salt = await bcrypt.genSalt(10);
+     const hashpassword = await bcrypt.hash(req.body.password,salt)
+
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
 
-    password: req.body.password,
+    password: hashpassword,
+
     address: req.body.address,
   });
 
@@ -275,10 +310,9 @@ router.post("/login", async (req, res) => {
 
   try {
     const user1 = await User.findOne({
-      userName: req.body.username,
-      password: req.body.password,
+      username: req.body.username,
     });
-
+   
     console.log("hello    world ");
     console.log(user1.username);
     console.log(user1.email);
@@ -290,19 +324,35 @@ router.post("/login", async (req, res) => {
 
     const inputPassword = req.body.password;
 
-    originalPassword != inputPassword && res.status(401).json("Wrong Password");
+    const validpassword = await bcrypt.compare(req.body.password,user1.password)
 
-    if (inputPassword == originalPassword) {
-      console.log("Password matched");
+   
+
+    if (validpassword) {
+      //console.log("Password matched");
       globaluserid = user1.id;
-      console.log(globaluserid);
-      return res.status(200).json("passwordmatched");
+      //console.log(globaluserid);
+      //return res.status(200).json("passwordmatched");
+         ///// JSON WEBTOKEN
+
+         jwt.sign({globaluserid}, 'secretkey', { expiresIn: '30s' }, (err, token) => {
+          res.json({
+            token
+          });
+        });
+
+     //  const token = jwt.sign({_id:globaluserid},process.env.TOKEN_SECRET);
+
+       //res.header('auth-token',token).send(token);
+
+
     } else {
       console.log("Password not matched");
     }
   } catch (err) {
     res.status(500).json(err);
   }
+
 });
 //get cart list
 router.get(
@@ -371,5 +421,6 @@ router.get(
 
     return res.status(200).json(userDetails);
   }
+
 );
 module.exports = router;
