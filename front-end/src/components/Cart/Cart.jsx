@@ -88,6 +88,7 @@ export default function Cart() {
   ];
  function handleCheckout(){
    axios.post("http://localhost:3000/user/orders")
+    window.location.reload();
  }
   const [items, setitems] = useState([1,2,3,4])
 

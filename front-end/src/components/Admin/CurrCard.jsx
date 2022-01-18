@@ -14,7 +14,8 @@ export default function CurrCard({ product }) {
                 if (err) {
                     console.log(err);
             }
-            })        
+            }) 
+             window.location.reload();       
         }
     
     return (
