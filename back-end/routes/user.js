@@ -2,10 +2,9 @@ const User = require("../models/User");
 const Product = require("../models/Product");
 
 const Pendorder = require("../models/Pendingorder");
-const bcrypt=require('bcryptjs');
+const bcrypt = require("bcryptjs");
 
-const jwt=require('jsonwebtoken');
-
+const jwt = require("jsonwebtoken");
 
 /*const {
   verifyToken,
@@ -122,13 +121,7 @@ router.get(
 
 router.post(
   "/addtocart/:prodid",
-  /*verifyTokenAndAdmin,*/ verifyToken,async (req, res) => {
-
-///////////////////////////
-jwt.verify(req.token, 'secretkey',async (err, authData) => {
- 
-
-//////////////////////////
+  /*verifyTokenAndAdmin,*/ async (req, res) => {
     res.send("we are on cart");
     console.log(req.params.prodid);
 
@@ -147,9 +140,7 @@ jwt.verify(req.token, 'secretkey',async (err, authData) => {
       }
     );
   }
-)
-
-  });
+);
 
 ////   user/order/222        user make order   /// total price function need to be set
 router.post(
@@ -251,18 +242,16 @@ router.get("/detail/:id", async (req, res) => {
     count += product.price;
     console.log("product id :" + count);
     // res.status(200).json(d);
-
-      
-   }
-   )})
+  });
+});
 ////
 function verifyToken(req, res, next) {
   // Get auth header value
-  const bearerHeader = req.headers['authorization'];
+  const bearerHeader = req.headers["authorization"];
   // Check if bearer is undefined
-  if(typeof bearerHeader !== 'undefined') {
+  if (typeof bearerHeader !== "undefined") {
     // Split at the space
-    const bearer = bearerHeader.split(' ');
+    const bearer = bearerHeader.split(" ");
     // Get token from array
     const bearerToken = bearer[1];
     // Set the token
@@ -273,7 +262,6 @@ function verifyToken(req, res, next) {
     // Forbidden
     res.sendStatus(403);
   }
-
 }
 
 ///////////
@@ -281,16 +269,13 @@ function verifyToken(req, res, next) {
 //REGISTER
 router.post("/register", async (req, res) => {
   res.send("we are on register");
- 
-     const salt = await bcrypt.genSalt(10);
-     const hashpassword = await bcrypt.hash(req.body.password,salt)
-
+  console.log(req.body.username);
+  console.log(req.body.email);
   const newUser = new User({
     username: req.body.username,
     email: req.body.email,
 
-    password: hashpassword,
-
+    password: req.body.password,
     address: req.body.address,
   });
 
@@ -310,9 +295,10 @@ router.post("/login", async (req, res) => {
 
   try {
     const user1 = await User.findOne({
-      username: req.body.username,
+      userName: req.body.username,
+      password: req.body.password,
     });
-   
+
     console.log("hello    world ");
     console.log(user1.username);
     console.log(user1.email);
@@ -324,35 +310,56 @@ router.post("/login", async (req, res) => {
 
     const inputPassword = req.body.password;
 
-    const validpassword = await bcrypt.compare(req.body.password,user1.password)
+    originalPassword != inputPassword && res.status(401).json("Wrong Password");
 
-   
-
-    if (validpassword) {
-      //console.log("Password matched");
+    if (inputPassword == originalPassword) {
+      console.log("Password matched");
       globaluserid = user1.id;
-      //console.log(globaluserid);
-      //return res.status(200).json("passwordmatched");
-         ///// JSON WEBTOKEN
-
-         jwt.sign({globaluserid}, 'secretkey', { expiresIn: '30s' }, (err, token) => {
-          res.json({
-            token
-          });
-        });
-
-     //  const token = jwt.sign({_id:globaluserid},process.env.TOKEN_SECRET);
-
-       //res.header('auth-token',token).send(token);
-
-
+      console.log(globaluserid);
+      return res.status(200).json("passwordmatched");
     } else {
       console.log("Password not matched");
     }
   } catch (err) {
     res.status(500).json(err);
   }
+});
 
+//LOGIN
+
+router.post("/login", async (req, res) => {
+  //res.send('we are on login');
+
+  try {
+    const user1 = await User.findOne({
+      userName: req.body.username,
+      password: req.body.password,
+    });
+
+    console.log("hello    world ");
+    console.log(user1.username);
+    console.log(user1.email);
+    console.log(user1.password);
+
+    !user1 && res.status(401).json("Wrong User Name");
+
+    const originalPassword = user1.password;
+
+    const inputPassword = req.body.password;
+
+    originalPassword != inputPassword && res.status(401).json("Wrong Password");
+
+    if (inputPassword == originalPassword) {
+      console.log("Password matched");
+      globaluserid = user1.id;
+      console.log(globaluserid);
+      return res.status(200).json("passwordmatched");
+    } else {
+      console.log("Password not matched");
+    }
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 //get cart list
 router.get(
@@ -421,6 +428,5 @@ router.get(
 
     return res.status(200).json(userDetails);
   }
-
 );
 module.exports = router;
