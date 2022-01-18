@@ -178,8 +178,8 @@ function Pagination({ data, RenderComponent, title, pageLimit, dataLimit }) {
           spacing={4}
           style={{ marginTop: "20px" }}
         >
-          {getPaginatedData().map((product) => (
-            <CardComp key={product.id} product={product} />
+          {getPaginatedData().map((product, index) => (
+            <CardComp key={product.id} product={product} index={index + 1} />
           ))}
         </Grid>
       </span>
